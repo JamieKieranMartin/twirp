@@ -14,12 +14,10 @@ func main() {
 	server := &mathService.Server{}
 	handler := math.NewMathServer(server, twirp.WithServerPathPrefix("/rpc"))
 
-	// New fiber app
 	app := fiber.New()
 
 	app.Use(logger.New())
-
-	app.Use("/", adaptor.HTTPHandler(handler))
+	app.Use(adaptor.HTTPHandler(handler))
 
 	app.Listen(":3000")
 }
